@@ -470,16 +470,16 @@
 
         </section>
         {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        {% for message in messages %}
-        <div id='alerta' class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle-fill"></i> {{message}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        
-        {% endfor %}
-        {% endif %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div id='alerta' class="alert alert-{{ 'success' if 'Mensagem enviada com sucesso!' in message else 'danger' }}" role="alert">
+                        <i class="bi {{ 'bi-check-circle-fill' if 'Mensagem enviada com sucesso!' in message else 'bi-exclamation-triangle-fill' }}"></i> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
+
 
 
     </main>

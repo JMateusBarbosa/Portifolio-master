@@ -1,57 +1,55 @@
-from flask  import Flask, render_template, redirect, request, flash
-from flask_mail import Mail, Message
-from config import email, senha
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
+from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
-app.secret_key = 'jmateus'
-
-mail_settings = {
-    "MAIL_SERVER": 'smtp.gmail.com',
-    "MAIL_PORT": 587,  # 587 é a porta típica para STARTTLS
-    "MAIL_USE_TLS": True,
-    "MAIL_USE_SSL": False,
-    "MAIL_USERNAME": email,
-    "MAIL_PASSWORD": senha
-}
-
-app.config.update(mail_settings)
-mail = Mail(app)
-class Contato:
-    def __init__(self, nome, email, mensagem):
-        self.nome = nome
-        self.email = email
-        self.mensagem = mensagem
-
+app.secret_key = 'chaveSecreta'  # dado sencivel
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/send', methods=['GET','POST'])
-def send():
-    if request.method == 'POST':
-        formContato = Contato (
-            request.form["nome"],
-            request.form["email"],
-            request.form["mensagem"]
-        )
+@app.route('/send', methods=['POST'])
+def enviar_email():
+    try:
+        nome = request.form['nome']
+        email = request.form['email']
+        mensagem = request.form['mensagem']
 
-        msg = Message(
-            subject = f'Messagem recebida de {formContato.nome}',
-            sender = app.config.get("MAIL_USERNAME"),
-            recipients = ['joaomateusbp7@gmail.com',app.config.get("MAIL_USERNAME")],
-            body = f''' 
+        local_hostname = 'your_local_hostname'
+        servidor_email = smtplib.SMTP('smtp.gmail.com', 587, local_hostname=local_hostname)
+        servidor_email.starttls()
+        servidor_email.login('portifoliojm@gmail.com', 'uhmj czse exfb ypxq')
 
-            {formContato.nome} com o email {formContato.email}, te enviou a seguinte
-            menssagem:
+        remetente = 'portifoliojm@gmail.com'
+        destinatario = 'portifoliojm@gmail.com'
+        assunto = f'Mensagem do formulário de contato de {nome} ({email})'
+        corpo_mensagem = f'''
+        Nome: {nome}
+        Email: {email}
+        
+        Mensagem:
+        {mensagem}
+        '''
 
-            {formContato.mensagem}
+        mensagem_email = MIMEMultipart()
+        mensagem_email['From'] = remetente
+        mensagem_email['To'] = destinatario
+        mensagem_email['Subject'] = assunto
+        mensagem_email.attach(MIMEText(corpo_mensagem, 'plain'))
 
-            '''
-        )
-        mail.send(msg)
-        flash('Menssagem enviada com sucesso!')
-    return redirect('/')  
-      
+        # Envie o e-mail
+        servidor_email.sendmail(remetente, destinatario, mensagem_email.as_string())
+        servidor_email.quit()
+
+        flash('Mensagem enviada com sucesso!', 'success')
+        return redirect(url_for('index'))
+    
+    except Exception as e:
+        flash(f'Erro ao enviar mensagem: {str(e)}', 'error')
+        return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.run(debug=True)
