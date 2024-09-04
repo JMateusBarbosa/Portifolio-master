@@ -1,11 +1,14 @@
 import smtplib
+import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
 from flask import Flask, render_template, request, redirect, url_for, flash
 
 app = Flask(__name__)
-app.secret_key = 'chaveSecreta'  # dado sencivel
+app.secret_key = os.getenv('SECRET_KEY', 'chaveSecreta')
+
+EMAIL = os.getenv('EMAIL')
+SENHA = os.getenv('SENHA')
 
 @app.route('/')
 def index():
@@ -18,13 +21,14 @@ def enviar_email():
         email = request.form['email']
         mensagem = request.form['mensagem']
 
+        # Configuração do servidor SMTP
         local_hostname = 'your_local_hostname'
         servidor_email = smtplib.SMTP('smtp.gmail.com', 587, local_hostname=local_hostname)
         servidor_email.starttls()
-        servidor_email.login('portifoliojm@gmail.com', 'uhmj czse exfb ypxq')
+        servidor_email.login(EMAIL, SENHA)  # Usando variáveis de ambiente
 
-        remetente = 'portifoliojm@gmail.com'
-        destinatario = 'portifoliojm@gmail.com'
+        remetente = EMAIL
+        destinatario = EMAIL
         assunto = f'Mensagem do formulário de contato de {nome} ({email})'
         corpo_mensagem = f'''
         Nome: {nome}
@@ -40,7 +44,7 @@ def enviar_email():
         mensagem_email['Subject'] = assunto
         mensagem_email.attach(MIMEText(corpo_mensagem, 'plain'))
 
-        # Envie o e-mail
+        # Enviar o e-mail
         servidor_email.sendmail(remetente, destinatario, mensagem_email.as_string())
         servidor_email.quit()
 
