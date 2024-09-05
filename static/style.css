@@ -88,15 +88,17 @@ html, body{
     margin-left: 300px;
 }
 
-section#inicio{
-    background-image: url("./img/banner2.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-
-    width: 100%;
-    height: 100vh;
+section#inicio {
+  background-image: url("./img/banner2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 section#inicio h2 {
@@ -115,12 +117,23 @@ section#inicio h2 {
   section#inicio div#arraste {
     width: 9rem;
   }
+  #inicio {
+    margin-bottom: 50px; /* Espaçamento entre a section "inicio" e "sobre" */
+}
   
   
-  section#inicio div#arraste a {
+  section#inicio div#arraste a{
       text-decoration: none;
       color: #fff;
+      margin-top: 90vh;
   }
+  .section-sobre h2 {
+    margin-top: 100px;
+  }
+  section#sobre {
+    margin-top: 50px; /* Adiciona espaçamento acima da seção "sobre" */
+    padding-top: 50px; /* Adiciona espaçamento dentro da seção "sobre" */
+}
 
   i.menu-mobile {
     position: fixed;
@@ -164,6 +177,25 @@ section#inicio h2 {
     }
     #main{
         margin-left: 0;
+    }
+    
+    .section-sobre {
+      margin-top: 18vh; /* Aumenta a margem superior para evitar a invasão */
+      margin-bottom: -20vh;
+      padding: 20px; /* Ajusta o espaçamento interno */
+    }
+
+    .section-sobre h2 {
+        font-size: 2rem; /* Ajusta o tamanho da fonte para responsividade */
+    }
+
+    .section-sobre p {
+        font-size: 1rem; /* Ajusta o tamanho do parágrafo */
+        line-height: 1.5; /* Melhora a legibilidade */
+    }
+    section#sobre img {
+      max-width: 105%;   
+      margin-bottom: 20px; 
     }
   }
 
