@@ -22,9 +22,9 @@ html, body{
 #header .profile img{
     margin: 15px auto;
     display: block;
-    width: 120px;
+    width: 150px;
     border: 5px solid #2c2f3f;
-    border-radius: 50%;
+    border-radius: 20%;
 }
 
 #header .profile h1{
@@ -134,7 +134,33 @@ section#inicio h2 {
     margin-top: 50px; /* Adiciona espaçamento acima da seção "sobre" */
     padding-top: 50px; /* Adiciona espaçamento dentro da seção "sobre" */
 }
+.custom-img {
+  margin-top: 15px; /* Adiciona espaço acima da imagem */
+  margin-bottom: 10px; /* Ajusta espaço abaixo da imagem */
+  object-fit: cover; /* Ajusta a imagem para não distorcer */
+}
 
+
+.card {
+  height: 100%; 
+}
+
+.custom-github-icon {
+  font-size: 30px;
+  margin-top: 15px; 
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 100%; 
+}
+
+.mt-auto {
+  margin-top: auto; 
+  text-align: center; 
+}
   i.menu-mobile {
     position: fixed;
     color: #fff;
