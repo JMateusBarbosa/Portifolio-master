@@ -131,13 +131,13 @@ section#inicio h2 {
     margin-top: 100px;
   }
   section#sobre {
-    margin-top: 50px; /* Adiciona espaçamento acima da seção "sobre" */
-    padding-top: 50px; /* Adiciona espaçamento dentro da seção "sobre" */
+    margin-top: 50px; 
+    padding-top: 50px; 
 }
 .custom-img {
-  margin-top: 15px; /* Adiciona espaço acima da imagem */
-  margin-bottom: 10px; /* Ajusta espaço abaixo da imagem */
-  object-fit: cover; /* Ajusta a imagem para não distorcer */
+  margin-top: 15px; 
+  margin-bottom: 10px; 
+  object-fit: cover; 
 }
 
 
@@ -149,7 +149,11 @@ section#inicio h2 {
   font-size: 30px;
   margin-top: 15px; 
 }
-
+.custom-site-icon{
+  font-size: 30px;
+  margin-top: 15px;
+  margin-left: 5px;
+}
 .card-body {
   display: flex;
   flex-direction: column;
